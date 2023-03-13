@@ -1,10 +1,10 @@
 const express = require("express")
 const app = express()
 
-app.use((req, res, next) => {
-    res.status(200).json({
-        message: "It Works!"
-    })
-})
+const usersRoutes = require('./api/routes/users')
+const usersDetailsRoutes = require("./api/routes/userDetails")
+
+app.use('/users', usersRoutes)
+app.use('/usersDetails', usersDetailsRoutes)
 
 module.exports = app
