@@ -1,18 +1,21 @@
 const express = require("express")
 const app = express()
 const morgan = require('morgan')
+const bodyParser = require("body-parser")
 
 const usersRoutes = require('./api/routes/users')
 const usersDetailsRoutes = require("./api/routes/userDetails")
 
 app.use(morgan('dev'))
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 
 app.use('/users', usersRoutes)
 app.use('/usersDetails', usersDetailsRoutes)
 
 app.use((req, res, next) => {
     const error = new Error('Not fount')
-    error.status(404)
+    error.status = 404
     next(error)
 })
 

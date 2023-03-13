@@ -8,8 +8,14 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
+    const user = {
+        fname: req.body.fname,
+        lname: req.body.lname
+    }
+
     res.status(201).json({
-        message: "Handling POST requests to /users"
+        message: "Handling POST requests to /users",
+        user: user
     })
 })
 
