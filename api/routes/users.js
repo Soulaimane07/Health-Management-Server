@@ -1,5 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
+
+const User = require('../models/Users')
 
 router.get('/', (req, res, next) => {
     res.status(200).json({
@@ -8,29 +11,41 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    const user = {
+    const user = new User({
+        _id: new mongoose.Types.ObjectId(),
+        email: req.body.email,
         fname: req.body.fname,
-        lname: req.body.lname
-    }
-
-    res.status(201).json({
-        message: "Handling POST requests to /users",
-        user: user
+        lname: req.body.lname,
+        pass: req.body.pass,
     })
+    user.save().then(result => {
+        console.log(result);
+        res.status(201).json({
+            message: "Handling POST requests to /users",
+            user: result
+        })
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            error: err
+        })
+    })
+
 })
 
 router.get('/:userId', (req, res, next) => {
     const id = req.params.userId
-    if(id === "hello"){
-        res.status(200).json({
-            message: 'hello world',
-            id: id
+    User.findById(id)
+        .exec()
+        .then(doc => {
+            console.log(doc);
+            res.status(200).json(doc)
         })
-    } else {
-        res.status(200).json({
-            message: "no id"
+        .catch(err => {
+            console.log(err),
+            res.status(500).json({error: err})
         })
-    }
 })
 
 router.patch('/:userId', (req, res, next) => {
