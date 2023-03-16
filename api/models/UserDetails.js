@@ -22,7 +22,10 @@ const userDetailsScheema = mongoose.Schema({
     },
     CWeight: { type: Number },
     GWeight: { type: Number },
-    activity: { type: String}
+    activity: { type: String},
+    calories: { type: Number, default: 0 },
+    steps: { type: Number, default: 0 },
+    water: { type: Number, default: 0 },
 })
 
 const UserDetailsModel = mongoose.model("UsersDetails", userDetailsScheema)

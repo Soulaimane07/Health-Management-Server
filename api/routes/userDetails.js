@@ -7,7 +7,7 @@ const User = require("../models/Users")
 
 router.get('/', (req, res, next) => {
     UserDetails.find()
-        .select("userId goal sex profile system age height CWeight GWeight activity")
+        .select("userId goal sex profile system age height CWeight GWeight activity calories steps water")
         .exec()
         .then(docs => {
             res.status(200).json(docs)
@@ -37,10 +37,13 @@ router.post('/', (req, res, next) => {
                 profile: req.body.profile,
                 system: req.body.system,
                 age: req.body.age,
-                height: { X: req.body.height.x, Y: req.body.height.y},
+                height: { X: req.body.height.X, Y: req.body.height.Y},
                 CWeight: req.body.CWeight,
                 GWeight: req.body.GWeight,
-                activity: req.body.activity
+                activity: req.body.activity,
+                calories: 0,
+                steps: 0,
+                water: 0,
             })
             return userDetails.save()
         })
@@ -58,7 +61,7 @@ router.get('/getByUserID/:userId', (req, res, next) => {
     const Id = req.params.userId
 
     UserDetails.findOne({userId: Id})
-        .select("userId goal sex profile system age height CWeight GWeight activity")
+        .select("userId goal sex profile system age height CWeight GWeight activity calories steps water")
         .exec()
         .then(doc => {
             res.status(200).json(doc)
