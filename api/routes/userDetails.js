@@ -27,8 +27,6 @@ router.post('/', (req, res, next) => {
                     message: 'User not found'
                 })
             }
-            const h = req.body.height
-            console.log(h);
             const userDetails = new UserDetails({
                 _id: new mongoose.Types.ObjectId(),
                 userId: req.body.userId,  
@@ -96,13 +94,22 @@ router.patch('/:userDetailsId', (req, res, next) => {
     })
 })
 
-router.delete('/:userDetailsId', (req, res, next) => {
-    const id = req.params.userDetailsId
+router.delete('/:userId', (req, res, next) => {
+    const id = req.params.userId
 
-    res.status(201).json({
-        message: "Delete user details",
-        id: id
-    })
+    UserDetails.deleteOne({userId: id})
+        .exec()
+        .then(result => {
+            res.status(200).json(result,{
+                message: 'User deleted'
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        })
 })
 
 module.exports = router

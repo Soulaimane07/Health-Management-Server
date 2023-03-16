@@ -57,19 +57,20 @@ router.get('/getByEmail/:userEmail', (req, res, next) => {
         })
 })
 
-// router.get('/:userId', (req, res, next) => {
-//     const id = req.params.userId
-//     User.findById(id)
-//         .select("_id email fname lname pass")
-//         .exec()
-//         .then(doc => {
-//             res.status(200).json(doc)
-//         })
-//         .catch(err => {
-//             console.log(err),
-//             res.status(500).json({error: err})
-//         })
-// })
+router.get('/getById/:userId', (req, res, next) => {
+    const id = req.params.userId
+    
+    User.findById(id)
+        .select("_id email fname lname pass")
+        .exec()
+        .then(doc => {
+            res.status(200).json(doc)
+        })
+        .catch(err => {
+            console.log(err),
+            res.status(500).json({error: err})
+        })
+})
 
 router.patch('/:userId', (req, res, next) => {
     const id = req.params.userId
@@ -92,10 +93,11 @@ router.patch('/:userId', (req, res, next) => {
 
 router.delete('/:userId', (req, res, next) => {
     const id = req.params.userId
+
     User.deleteOne({_id: id})
         .exec()
         .then(result => {
-            res.status(200).json({
+            res.status(200).json(result,{
                 message: 'User deleted'
             })
         })
