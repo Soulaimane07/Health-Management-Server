@@ -100,9 +100,7 @@ router.delete('/:userId', (req, res, next) => {
     UserDetails.deleteOne({userId: id})
         .exec()
         .then(result => {
-            res.status(200).json(result,{
-                message: 'User deleted'
-            })
+            res.status(200).json(result)
         })
         .catch(err => {
             console.log(err);
