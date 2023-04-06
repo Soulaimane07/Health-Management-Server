@@ -4,6 +4,23 @@ const mongoose = require('mongoose')
 
 const Food = require('../models/Food')
 
+const multer = require('multer')
+const path = require('path')
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, 'uploads/images/food')
+    },
+    filename: function(req, file, cb){
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+})
+const upload = multer({
+    storage: storage,
+})
+
+
+
 router.get('/', (req, res, next) => {
     Food.find()
         .select("_id name image calories carbs protein fat fiber")
@@ -19,10 +36,10 @@ router.get('/', (req, res, next) => {
         })
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', upload.single('image'), (req, res, next) => {
     const food = new Food({
         _id: new mongoose.Types.ObjectId(),
-        image: req.body.image,
+        image: req.file.path,
         name: req.body.name,
         caloeies: req.body.caloeies,
         fat: req.body.fat,
