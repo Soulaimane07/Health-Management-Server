@@ -41,7 +41,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         image: req.file.path,
         name: req.body.name,
-        caloeies: req.body.caloeies,
+        caloeies: req.body.calories,
         fat: req.body.fat,
         carbs: req.body.carbs,
         protein: req.body.protein,

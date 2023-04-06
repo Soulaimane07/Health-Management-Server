@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 app.use('/users', usersRoutes)
 app.use('/usersDetails', usersDetailsRoutes)
 app.use('/food', foodRoutes)
+app.use('/uploads', express.static('uploads'))
 
 
 app.use((req, res, next) => {
