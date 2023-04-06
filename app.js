@@ -6,6 +6,7 @@ const mongoose = require("mongoose")
 
 const usersRoutes = require('./api/routes/users')
 const usersDetailsRoutes = require("./api/routes/userDetails")
+const foodRoutes = require("./api/routes/food")
 
 mongoose.connect('mongodb+srv://soulaimane:QZv1gkNEYwDfGZ2N@pfe.r42jd4t.mongodb.net/PFE?retryWrites=true&w=majority')
 mongoose.Promise = global.Promise
@@ -27,8 +28,11 @@ app.use((req, res, next) => {
     next( )
 })
 
+
 app.use('/users', usersRoutes)
 app.use('/usersDetails', usersDetailsRoutes)
+app.use('/food', foodRoutes)
+
 
 app.use((req, res, next) => {
     const error = new Error('Not fount')
