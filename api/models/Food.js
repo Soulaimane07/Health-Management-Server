@@ -12,6 +12,10 @@ const FoodSchema = mongoose.Schema({
         required: true,
         unique: true,
     },
+    type: {
+        type: String,
+        required: true,
+    },
     calories: {
         type: Number,
         default: 0,
