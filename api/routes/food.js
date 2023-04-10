@@ -23,7 +23,7 @@ const upload = multer({
 
 router.get('/', (req, res, next) => {
     Food.find()
-        .select("_id name image calories carbs protein fat fiber")
+        .select("_id name image type calories carbs protein fat fiber")
         .exec()
         .then(docs => {
             res.status(200).json(docs)
@@ -41,6 +41,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         image: req.file.path || req.file.name,
         name: req.body.name,
+        type: req.body.type,
         calories: req.body.calories,
         fat: req.body.fat,
         carbs: req.body.carbs,
@@ -67,7 +68,7 @@ router.get('/getById/:foodId', (req, res, next) => {
     const FoodId = req.params.foodId
 
     Food.findOne({_id: FoodId})
-        .select("_id name image calories carbs protein fat fiber")
+        .select("_id name image type calories carbs protein fat fiber")
         .exec()
         .then(doc => {
             res.status(200).json(doc)
@@ -82,7 +83,7 @@ router.get('/getByName/:foodName', (req, res, next) => {
     const FoodName = req.params.foodName
 
     Food.findOne({name: FoodName})
-        .select("_id name image calories carbs protein fat fiber")
+        .select("_id name image type calories carbs protein fat fiber")
         .exec()
         .then(doc => {
             res.status(200).json(doc)
