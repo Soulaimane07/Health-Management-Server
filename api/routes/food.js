@@ -9,7 +9,7 @@ const path = require('path')
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, 'uploads/images/food')
+        cb(null, 'Uploads')
     },
     filename: function(req, file, cb){
         cb(null, Date.now() + path.extname(file.originalname))
@@ -41,7 +41,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         type: req.body.type,
-        image: req.file.name || req.file.path ,
+        image: req.file.name || req.file.path,
         calories: req.body.calories,
         fat: req.body.fat,
         carbs: req.body.carbs,
