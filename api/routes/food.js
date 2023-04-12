@@ -39,9 +39,9 @@ router.get('/', (req, res, next) => {
 router.post('/', upload.single('image'), (req, res, next) => {
     const food = new Food({
         _id: new mongoose.Types.ObjectId(),
-        image: req.file.path || req.file.name,
         name: req.body.name,
         type: req.body.type,
+        image: req.file.name || req.file.path ,
         calories: req.body.calories,
         fat: req.body.fat,
         carbs: req.body.carbs,
