@@ -8,6 +8,7 @@ const usersRoutes = require('./api/routes/users')
 const usersDetailsRoutes = require("./api/routes/userDetails")
 const foodRoutes = require("./api/routes/food")
 
+
 mongoose.connect('mongodb+srv://soulaimane:QZv1gkNEYwDfGZ2N@pfe.r42jd4t.mongodb.net/PFE?retryWrites=true&w=majority')
 mongoose.Promise = global.Promise
 
@@ -33,7 +34,13 @@ app.use('/users', usersRoutes)
 app.use('/usersDetails', usersDetailsRoutes)
 app.use('/food', foodRoutes)
 app.use('/uploads', express.static('uploads'))
+app.use('/assets', express.static('View/assets'))
 
+const path = require('path');
+
+app.get('/',function(req,res){      
+    res.sendFile(path.join(__dirname,'./View/index.html'));
+});
 
 app.use((req, res, next) => {
     const error = new Error('Not fount')
