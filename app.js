@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 app.use('/users', usersRoutes)
 app.use('/usersDetails', usersDetailsRoutes)
 app.use('/food', foodRoutes)
-app.use('/uploads', express.static('uploads'))
+app.use('/uploads', express.static('Uploads'))
 app.use('/assets', express.static('View/assets'))
 
 const path = require('path');
