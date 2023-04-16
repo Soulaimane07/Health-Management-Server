@@ -6,6 +6,7 @@ const mongoose = require("mongoose")
 
 const usersRoutes = require('./api/routes/users')
 const usersDetailsRoutes = require("./api/routes/userDetails")
+const usersProgressRoutes = require("./api/routes/usersProgress")
 const foodRoutes = require("./api/routes/food")
 
 
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 
 app.use('/users', usersRoutes)
 app.use('/usersDetails', usersDetailsRoutes)
+app.use('/usersProgress', usersProgressRoutes)
 app.use('/food', foodRoutes)
 app.use('/uploads', express.static('Uploads'))
 app.use('/assets', express.static('View/assets'))
