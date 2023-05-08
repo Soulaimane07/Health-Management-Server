@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
 router.get('/getByUserID/:userId', (req, res, next) => {
     const Id = req.params.userId
 
-    UsersProgress.findOne({userId: Id})
+    UsersProgress.find({userId: Id})
         .select("_id userId calories steps water day")
         .exec()
         .then(doc => {
