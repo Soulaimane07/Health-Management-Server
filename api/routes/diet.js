@@ -23,7 +23,7 @@ const upload = multer({
 
 router.get('/', (req, res, next) => {
     Diet.find()
-        .select("_id title image desc")
+        .select("_id title image desc duree carbs protein fat")
         .exec()
         .then(docs => {
             res.status(200).json(docs)
@@ -42,6 +42,10 @@ router.post('/', upload.single('image'), (req, res, next) => {
         title: req.body.title,
         desc: req.body.desc,
         image: req.file.name || req.file.path,
+        duree: req.body.duree,
+        carbs: req.body.carbs,
+        protein: req.body.protein,
+        fat: req.body.fat,
     })
     diet.save()
         .then(result => {
