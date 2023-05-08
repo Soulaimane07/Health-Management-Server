@@ -8,7 +8,7 @@ const usersRoutes = require('./api/routes/users')
 const usersDetailsRoutes = require("./api/routes/userDetails")
 const usersProgressRoutes = require("./api/routes/usersProgress")
 const foodRoutes = require("./api/routes/food")
-const dietRoutes = require("./api/routes/diet")
+const dietsRoutes = require("./api/routes/diet")
 
 
 mongoose.connect('mongodb+srv://soulaimane:QZv1gkNEYwDfGZ2N@pfe.r42jd4t.mongodb.net/PFE?retryWrites=true&w=majority')
@@ -36,7 +36,7 @@ app.use('/users', usersRoutes)
 app.use('/usersDetails', usersDetailsRoutes)
 app.use('/usersProgress', usersProgressRoutes)
 app.use('/food', foodRoutes)
-app.use('/diets', dietRoutes)
+app.use('/diets', dietsRoutes)
 
 app.use('/uploads', express.static('Uploads'))
 app.use('/assets', express.static('View/assets'))
