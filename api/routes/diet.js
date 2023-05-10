@@ -23,7 +23,7 @@ const upload = multer({
 
 router.get('/', (req, res, next) => {
     Diet.find()
-        .select("_id title image desc duree carbs protein fat type")
+        .select("_id title image desc duree carbs protein fat type ")
         .exec()
         .then(docs => {
             res.status(200).json(docs)
@@ -68,7 +68,7 @@ router.get('/getById/:dietId', (req, res, next) => {
     const DietId = req.params.dietId
 
     Diet.findOne({_id: DietId})
-        .select("_id title image desc duree carbs protein fat type")
+        .select("_id title image desc duree carbs protein fat type ")
         .exec()
         .then(doc => {
             res.status(200).json(doc)
