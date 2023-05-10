@@ -63,20 +63,20 @@ router.post('/', upload.single('image'), (req, res, next) => {
 
 })
 
-// router.get('/getById/:foodId', (req, res, next) => {
-//     const FoodId = req.params.foodId
+router.get('/getById/:dietId', (req, res, next) => {
+    const DietId = req.params.dietId
 
-//     Food.findOne({_id: FoodId})
-//         .select("_id name image type calories carbs protein fat fiber")
-//         .exec()
-//         .then(doc => {
-//             res.status(200).json(doc)
-//         })
-//         .catch(err => {
-//             console.log(err),
-//             res.status(500).json({error: err})
-//         })
-// })
+    Diet.findOne({_id: DietId})
+        .select("_id title image desc duree carbs protein fat")
+        .exec()
+        .then(doc => {
+            res.status(200).json(doc)
+        })
+        .catch(err => {
+            console.log(err),
+            res.status(500).json({error: err})
+        })
+})
 
 // router.get('/getByName/:foodName', (req, res, next) => {
 //     const FoodName = req.params.foodName
