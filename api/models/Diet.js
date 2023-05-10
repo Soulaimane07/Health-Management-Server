@@ -16,10 +16,6 @@ const DietSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    type: {
-        type: String,
-        required: true,
-    },
     duree: {
         type: Number,
         required: false,
