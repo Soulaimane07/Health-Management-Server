@@ -23,7 +23,7 @@ const upload = multer({
 
 router.get('/', (req, res, next) => {
     Diet.find()
-        .select("_id title image desc")
+        .select("_id title image desc duree carbs protein fat")
         .exec()
         .then(docs => {
             res.status(200).json(docs)
@@ -42,6 +42,10 @@ router.post('/', upload.single('image'), (req, res, next) => {
         title: req.body.title,
         desc: req.body.desc,
         image: req.file.name || req.file.path,
+        duree: req.body.duree,
+        carbs: req.body.carbs,
+        protein: req.body.protein,
+        fat: req.body.fat,
     })
     diet.save()
         .then(result => {
@@ -59,20 +63,20 @@ router.post('/', upload.single('image'), (req, res, next) => {
 
 })
 
-// router.get('/getById/:foodId', (req, res, next) => {
-//     const FoodId = req.params.foodId
+router.get('/getById/:dietId', (req, res, next) => {
+    const DietId = req.params.dietId
 
-//     Food.findOne({_id: FoodId})
-//         .select("_id name image type calories carbs protein fat fiber")
-//         .exec()
-//         .then(doc => {
-//             res.status(200).json(doc)
-//         })
-//         .catch(err => {
-//             console.log(err),
-//             res.status(500).json({error: err})
-//         })
-// })
+    Diet.findOne({_id: DietId})
+        .select("_id title image desc duree carbs protein fat")
+        .exec()
+        .then(doc => {
+            res.status(200).json(doc)
+        })
+        .catch(err => {
+            console.log(err),
+            res.status(500).json({error: err})
+        })
+})
 
 // router.get('/getByName/:foodName', (req, res, next) => {
 //     const FoodName = req.params.foodName
