@@ -94,14 +94,29 @@ router.get('/getByName/:foodName', (req, res, next) => {
         })
 })
 
-router.patch('/:foodId', (req, res, next) => {
+router.patch('/:foodId', upload.single('image'), (req, res, next) => {
     const id = req.params.foodId
 
-    const updateOps = {}
-    for(const ops of req.body){
-        updateOps[ops.propName] = ops.value
-    }
-    Food.updateOne({_id: id}, {$set: updateOps})
+    // const updateOps = {}
+    //     // for(const ops of req.body){
+    //     //     updateOps[ops.propName] = ops.value
+    //     //     console.log(ops);
+    //     // }
+
+    //     const image = upload.single(req.body[0].value);
+    //     updateOps['image'] = image;
+    //     console.log("image", image);
+
+    Food.updateOne({_id: id}, {$set: {
+        image: req.file.name || req.file.path,
+        name: req.body.name,
+        type: req.body.type,
+        calories: req.body.calories,
+        fat: req.body.fat,
+        carbs: req.body.carbs,
+        protein: req.body.protein,
+        fiber: req.body.fiber,
+    }})
         .exec()
         .then(result => {
             res.status(200).json(result)
