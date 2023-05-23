@@ -93,14 +93,22 @@ router.get('/getById/:dietId', (req, res, next) => {
 //         })
 // })
 
-router.patch('/:dietId', (req, res, next) => {
+router.patch('/:dietId', upload.single('image'), (req, res, next) => {
     const id = req.params.dietId
 
-    const updateOps = {}
-    for(const ops of req.body){
-        updateOps[ops.propName] = ops.value
+    const UpdateObj = {
+        title: req.body.title,
+        desc: req.body.desc,
+        duree: req.body.duree,
+        carbs: req.body.carbs,
+        protein: req.body.protein,
+        fat: req.body.fat,
     }
-    Diet.updateOne({_id: id}, {$set: updateOps})
+    req.file && (
+        UpdateObj.image = req.file.name || req.file.path
+    )
+    
+    Diet.updateOne({_id: id}, {$set: UpdateObj})
         .exec()
         .then(result => {
             res.status(200).json(result)
